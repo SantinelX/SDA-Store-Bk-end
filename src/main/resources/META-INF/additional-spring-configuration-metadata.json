@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "srpring.jpa.hibernate.dll-auto",
+      "type": "java.lang.String",
+      "description": "Description for srpring.jpa.hibernate.dll-auto."
+  }
+] }

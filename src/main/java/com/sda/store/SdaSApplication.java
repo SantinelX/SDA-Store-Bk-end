@@ -1,0 +1,35 @@
+package com.sda.store;
+import com.sda.store.model.Role;
+import com.sda.store.model.RoleEnum;
+import com.sda.store.service.RoleService;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
+import java.util.List;
+
+@SpringBootApplication
+public class SdaSApplication implements CommandLineRunner {
+
+    private RoleService roleService;
+
+    public SdaSApplication(RoleService roleService){
+        this.roleService = roleService;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(SdaSApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        List<RoleEnum> roleEnumList = Arrays.asList(RoleEnum.values());
+        for (RoleEnum roleEnum:  roleEnumList) {
+            Role role = new Role(roleEnum.name());
+            roleService.create(role);
+        }
+    }
+
+}
