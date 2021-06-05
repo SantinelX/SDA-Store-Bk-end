@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/populate").permitAll()
                 .antMatchers("/product-types").permitAll()
                 .antMatchers("/shopping-cart").permitAll()
+                .antMatchers("/hello-world").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
