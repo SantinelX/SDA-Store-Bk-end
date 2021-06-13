@@ -68,7 +68,7 @@ public class ProductController {
 
     private ProductResponseDto mapProductToProductResponseDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setProductName(product.getProductName());
+        productResponseDto.setProduct_name(product.getProductName());
         productResponseDto.setDescription(product.getDescription());
         productResponseDto.setThumbnail(product.getThumbnail());
         productResponseDto.setCategoryId(product.getCategory().getId());
@@ -83,7 +83,7 @@ public class ProductController {
 
     private Product mapProductRequestDtoToProduct(ProductRequestDto productRequestDto) {
         Product product = new Product();
-        product.setProductName(productRequestDto.getProductName());
+        product.setProductName(productRequestDto.getProduct_name());
         product.setDescription(productRequestDto.getDescription());
         product.setThumbnail(productRequestDto.getThumbnail());
 
@@ -99,7 +99,7 @@ public class ProductController {
     }
 
     private Product updateProductRequestDtoToProduct(Product product, ProductRequestDto productRequestDto) {
-        product.setProductName(productRequestDto.getProductName());
+        product.setProductName(productRequestDto.getProduct_name());
         product.setDescription(productRequestDto.getDescription());
         product.setThumbnail(productRequestDto.getThumbnail());
 

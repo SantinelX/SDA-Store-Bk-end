@@ -5,7 +5,7 @@ import com.sda.store.model.User;
 
 public class ProductRequestDto {
 
-    private String productName;
+    private String product_name;
     private String description;
     private String thumbnail;
     private Long categoryId;
@@ -14,12 +14,12 @@ public class ProductRequestDto {
     private User user;
     private Long stock;
 
-    public String getProductName() {
-        return productName;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
     public String getDescription() {

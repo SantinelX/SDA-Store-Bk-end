@@ -4,17 +4,14 @@ import com.sda.store.model.Category;
 import com.sda.store.model.Product;
 import com.sda.store.model.ProductType;
 import org.springframework.data.jpa.domain.Specification;
-
-import javax.persistence.Parameter;
 import javax.persistence.criteria.*;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
 public class ProductSpecifcation implements Specification<Product> {
 
     public static Specification<Product> withNameLike(String productName) {
-        return ((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("productTitle"), "%" + productName + "%"));
+        return ((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("productName"), "%" + productName + "%"));
     }
 
     public static Specification<Product> ofType (ProductType productType){
