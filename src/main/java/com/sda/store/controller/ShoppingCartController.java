@@ -70,6 +70,16 @@ public class ShoppingCartController {
         return HttpStatus.BAD_REQUEST;
     }
 
+    @DeleteMapping("shopping-cart/delete/{id}")
+    public HttpStatus deleteProduct(@PathVariable("id") Long id) {
+        UserDetails loggedUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByEmail(loggedUser.getUsername());
+        if (user.getShopingCart().getProductList().contains(productService.findById(id))) {
+            shoppingCartService.removeProductFromCart(productService.findById(id), user.getShopingCart());
+        }
+        return HttpStatus.OK;
+    }
+
     public OrderLine mapOrderLineDtoToOrderLine(ShoppingCartOrderLineDto shoppingCartOrderLineDto) {
         Product product = productService.findById(shoppingCartOrderLineDto.getProductId());
         if (product == null) {

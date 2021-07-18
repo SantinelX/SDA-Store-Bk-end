@@ -10,6 +10,7 @@ import com.sda.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -44,6 +45,12 @@ public class ProductController {
     public ProductRequestDto update(@PathVariable("id") Long id, @RequestBody ProductRequestDto ProductRequestDto){
         Product updatedProduct = updateProductRequestDtoToProduct(productService.findById(id), ProductRequestDto);
         return mapProductToProductResponseDto(productService.createProduct(updatedProduct));
+    }
+
+    @DeleteMapping(value="/products/delete/{id}")
+    public HttpStatus delete(@PathVariable Long id){
+        this.productService.deleteProduct(id);
+        return HttpStatus.OK;
     }
 
     @GetMapping(value = "/products")

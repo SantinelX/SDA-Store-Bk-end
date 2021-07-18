@@ -1,17 +1,13 @@
 package com.sda.store.controller;
 
+import com.sda.store.controller.dto.product.ProductRequestDto;
 import com.sda.store.controller.dto.user.AddressDto;
 import com.sda.store.controller.dto.user.UserDto;
-import com.sda.store.model.Address;
-import com.sda.store.model.Role;
-import com.sda.store.model.User;
+import com.sda.store.model.*;
 import com.sda.store.service.RoleService;
 import com.sda.store.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -44,6 +40,12 @@ public class UserController {
         return (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
+    @PutMapping(value = "/users/{id}")
+    public UserDto update(@PathVariable("id") Long id, @RequestBody UserDto userDto) {
+        User updateUser = updateUserDtoToUser(userService.findById(id), userDto);
+        return mapUserToUserDto(userService.updateUser(updateUser));
+    }
+
     private UserDto mapUserToUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
@@ -54,7 +56,7 @@ public class UserController {
         userDto.setMessagingChannel(user.getMessagingChannel());
 
         Set<Role> userRoles = user.getRole();
-        for (Role role: userRoles) {
+        for (Role role : userRoles) {
             userDto.setRole(role.getName());
         }
 
@@ -85,5 +87,16 @@ public class UserController {
         address.setZipCode(addressDto.getZipCode());
         address.setStreet(addressDto.getStreet());
         return address;
+    }
+
+    private User updateUserDtoToUser(User user, UserDto userDto) {
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setImageUrl(userDto.getImgUrl());
+        user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
+        user.setMessagingChannel(userDto.getMessagingChannel());
+        return user;
+
     }
 }
